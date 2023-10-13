@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPNR", "LPNR\LPNR.csproj", "{C6216BCD-4C56-4AE8-91B2-72C4A9FCDF08}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6216BCD-4C56-4AE8-91B2-72C4A9FCDF08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6216BCD-4C56-4AE8-91B2-72C4A9FCDF08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6216BCD-4C56-4AE8-91B2-72C4A9FCDF08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6216BCD-4C56-4AE8-91B2-72C4A9FCDF08}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8CD5EE59-4BDC-4087-A41C-74E45E7545DB}
+	EndGlobalSection
+EndGlobal
