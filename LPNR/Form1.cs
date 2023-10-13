@@ -1,6 +1,10 @@
 ﻿using AForge;
 using AForge.Imaging;
+using AForge.Imaging.Filters;
 using AForge.Math.Geometry;
+using AForge.Video;
+using AForge.Video.DirectShow;
+using LPNR.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +12,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,8 +27,16 @@ namespace LPNR
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        FilterInfoCollection filtercollection; //Bilgisayara bağlı kameraları tutan dizi
+        VideoCaptureDevice vcd;
+
+        [DllImport(@"C:\Users\cnr24\Downloads\LicensePlateRecognitionSystem-master\LicensePlateRecognitionSystem-master\PlakaTanimaSistemi\references\OtsuEsikleme.dll")]
+        public static extern void OtsuEsikleme(ref byte pixelDizisi, ref byte esikDeger, int genislik, int yukseklik);
+
+
+        private void GaborAndSomeFilter()
         {
+            //Bitmap bmp = new Bitmap(pictureBox3.Image);
             Bitmap bmp = new Bitmap(pictureBox1.Image);
             Bitmap bmpsobe;
             Bitmap bmpmedian;
@@ -35,35 +48,33 @@ namespace LPNR
             else
             {
 
-                progressBar1.Visible = true;
+                //progressBar1.Visible = true;
                 int i, j;
                 Color ort;//Color sınıfından bir renk nesne tanımlıyoruz.
 
                 //int r,g,b;
-                progressBar1.Maximum = bmp.Width * bmp.Height;//İşlem çubuğunun maksimim olduğu yer for döngüsünün sonundaki piksel değerine erişmemiz durumundadır.
+                //progressBar1.Maximum = bmp.Width * bmp.Height;//İşlem çubuğunun maksimim olduğu yer for döngüsünün sonundaki piksel değerine erişmemiz durumundadır.
                 for (i = 0; i <= bmp.Width - 1; i++)//dikey olarak görüntümüzü tarıyoruz.
                 {
-                    for (j = 0; j <= bmp.Height - 1; j++)//yatay olarak görüntümüzü tarıyoruz. 
+                    for (j = 0; j <= bmp.Height - 1; j++)
                     {
                         ort = bmp.GetPixel(i, j);
                         ort = Color.FromArgb((byte)((ort.R + ort.G + ort.B) / 3), (byte)((ort.R + ort.G + ort.B) / 3), (byte)((ort.R + ort.G + ort.B) / 3));
                         bmp.SetPixel(i, j, ort);
-                        if ((i % 10) == 0)//her on satırda bir göstergeyi güncelle
-                        {
-                            progressBar1.Value = i * bmp.Height + j;
-                            Application.DoEvents();
-                        }
+                        //if ((i % 10) == 0)
+                        //{
+                        //    progressBar1.Value = i * bmp.Height + j;
+                        //    Application.DoEvents();
+                        //}
                     }
                 }
 
             }
-            //////////////////////// Median //////////////
 
-            bmpmedian = ExtBitmap.MedianFilter(bmp, 3);
+            bmpmedian = BitmapSettings.MedianFilter(bmp, 3);
 
-            /////////////////////// SOBEL ///////////////
 
-            bmpsobe = ExtBitmap.Sobel3x3Filter(bmpmedian, true);
+            bmpsobe = BitmapSettings.Sobel3x3Filter(bmpmedian, true);
             Bitmap bmpsobe1 = (Bitmap)bmpsobe.Clone();
 
             /////////// otsu
@@ -74,8 +85,7 @@ namespace LPNR
             Bitmap resim = (Bitmap)bmpsobe1.Clone();
             for (y = 0; y < yukseklik; y++)
                 for (x = 0; x < genislik; x++)
-                    // Pixelleri kütüphanenin işleyebileceği tek boyutlu bir diziye atıyoruz.
-                    // Gri seviyede tüm ana renkler eşit olduğu için sadece kırmızıyı okumak gri seviye için yeterli.
+
                     pixeller[y * genislik + x] = resim.GetPixel(x, y).R;
 
             byte esikDeger = 0;
@@ -84,8 +94,8 @@ namespace LPNR
             for (y = 0; y < yukseklik; y++)
                 for (x = 0; x < genislik; x++)
                 {
-                    renkk = pixeller[y * genislik + x]; // gri
-                    resim.SetPixel(x, y, Color.FromArgb(renkk, renkk, renkk)); // Gri seviyeyi argb moduna dönüştürüp resme aktarıyoruz.
+                    renkk = pixeller[y * genislik + x];
+                    resim.SetPixel(x, y, Color.FromArgb(renkk, renkk, renkk));
                 }
 
             otsu = (Bitmap)resim.Clone();
@@ -94,27 +104,27 @@ namespace LPNR
             Bitmap bmpclosing;
 
 
-            bmperosion = ExtBitmap.DilateAndErodeFilter(otsu, 3, akıllıgecissistemleri.ExtBitmap.MorphologyType.Erosion, true, true, true);
+            bmperosion = BitmapSettings.DilateAndErodeFilter(otsu, 3, BitmapSettings.MorphologyType.Erosion, true, true, true);
             Bitmap bmperosionn = (Bitmap)bmperosion.Clone();
 
-            bmpdilation = ExtBitmap.DilateAndErodeFilter(bmperosionn, 7, akıllıgecissistemleri.ExtBitmap.MorphologyType.Dilation, true, true, true);
+            bmpdilation = BitmapSettings.DilateAndErodeFilter(bmperosionn, 7, BitmapSettings.MorphologyType.Dilation, true, true, true);
             Bitmap bmpdilationn = (Bitmap)bmpdilation.Clone();
 
             Bitmap one = (Bitmap)bmpdilationn.Clone();
             BlobsFiltering filter0 = new BlobsFiltering();
-            // filtre ayarlaması
+
             filter0.CoupledSizeFiltering = true;
             filter0.MinWidth = 70;
             filter0.MinHeight = 40;
-            // filtre uygula
+
             filter0.ApplyInPlace(one);
 
 
             Bitmap one2 = (Bitmap)one.Clone();
-            bmpclosing = ExtBitmap.CloseMorphologyFilter(one2, 15, true, true, true);
+            bmpclosing = BitmapSettings.CloseMorphologyFilter(one2, 15, true, true, true);
             Bitmap bmperosio = (Bitmap)bmpclosing.Clone();
 
-            Bitmap bmperosionson = ExtBitmap.DilateAndErodeFilter(bmperosio, 9, akıllıgecissistemleri.ExtBitmap.MorphologyType.Erosion, true, true, true);
+            Bitmap bmperosionson = BitmapSettings.DilateAndErodeFilter(bmperosio, 9, BitmapSettings.MorphologyType.Erosion, true, true, true);
             Bitmap blobson = (Bitmap)bmperosionson.Clone();
 
             BlobsFiltering filterson = new BlobsFiltering();
@@ -133,16 +143,16 @@ namespace LPNR
             // filtre uygula
             Bitmap newImage = filter.Apply(one1);
             Bitmap newImage1 = (Bitmap)newImage.Clone();
-            // obje sayısını kontrol et
+
             int objectCount = filter.ObjectCount;
 
             BlobCounter blobCounter = new BlobCounter();
             blobCounter.ProcessImage(rect);
             Blob[] blobs = blobCounter.GetObjectsInformation();
-            // Görüntüye çizmek için Graphic nesnesi ve bir kalem oluştur
+
             Graphics g = Graphics.FromImage(rect);
             Pen bluePen = new Pen(Color.Blue, 2);
-            // her nesne kpntrol edilir ve etrafında daire çizilir.
+
 
             for (int i = 0, n = blobs.Length; i < n; i++)
             {
@@ -180,7 +190,7 @@ namespace LPNR
             Bitmap rect1 = (Bitmap)pictureBox1.Image.Clone();
             Graphics g1 = Graphics.FromImage(rect1);
             Pen bluePen2 = new Pen(Color.Red, 2);
-            // her nesne kpntrol edilir ve etrafında daire çizilir.
+
 
             List<Blob> bloplar = new List<Blob>();
             for (int i = 0, n = blobs.Length; i < n; i++)
@@ -215,7 +225,6 @@ namespace LPNR
             Bitmap kes1 = (Bitmap)rect1.Clone();
             Graphics g2 = Graphics.FromImage(kes1);
             Pen bluePen3 = new Pen(Color.Red, 2);
-            // her nesne kpntrol edilir ve etrafında daire çizilir.
 
             for (int i = 0, n = blobs.Length; i < n; i++)
             {
@@ -257,6 +266,11 @@ namespace LPNR
             bluePen3.Dispose();
             g2.Dispose();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            GaborAndSomeFilter();
+        }
         public int[] sinir(List<IntPoint> list)
         {
             int[] sinirlar = { 0, 0, 0, 0 };
@@ -286,6 +300,112 @@ namespace LPNR
             sinirlar[2] = y1;
             sinirlar[3] = y2;
             return sinirlar;
+        }
+        private System.Drawing.Point[] ToPointsArray(List<IntPoint> points)
+        {
+            return points.Select(p => new System.Drawing.Point(p.X, p.Y)).ToArray();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Resim Dosyaları (*.bmp)|*.jpg;*.gif;*.bmp;*.png;*.jpeg";
+            openFileDialog1.Multiselect = false;
+            openFileDialog1.FileName = "";
+            if (openFileDialog1.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                return;
+            resimYukle(openFileDialog1.FileName);
+
+        }
+
+        private void resimYukle(string resimYolu)
+        {
+            Bitmap resim = new Bitmap(resimYolu);
+
+            if (resim.Width >= 480 || resim.Height >= 360)
+            {
+                float katsayi;
+                int genislik;
+                int yukseklik;
+
+                if (resim.Width - 480 > resim.Height - 360)
+                {
+                    katsayi = (float)480 / resim.Width;
+                    genislik = 480;
+                    yukseklik = (int)(katsayi * resim.Height);
+                }
+                else
+                {
+                    katsayi = (float)360 / resim.Height;
+                    yukseklik = 360;
+                    genislik = (int)(katsayi * resim.Width);
+                }
+                Bitmap boyutlandirilmis = new Bitmap(genislik, yukseklik);
+                Graphics grafik = Graphics.FromImage(boyutlandirilmis);
+                grafik.DrawImage(resim, 0, 0, genislik, yukseklik);
+                pictureBox1.Image = boyutlandirilmis;
+            }
+            else pictureBox1.Image = resim;
+            pictureBox1.Enabled = false;
+            Application.DoEvents();
+        }
+
+        private void resimYuklePbx(System.Drawing.Image resim = null)
+        {
+
+            if (resim.Width >= 480 || resim.Height >= 360)
+            {
+                float katsayi;
+                int genislik;
+                int yukseklik;
+
+                if (resim.Width - 480 > resim.Height - 360)
+                {
+                    katsayi = (float)480 / resim.Width;
+                    genislik = 480;
+                    yukseklik = (int)(katsayi * resim.Height);
+                }
+                else
+                {
+                    katsayi = (float)360 / resim.Height;
+                    yukseklik = 360;
+                    genislik = (int)(katsayi * resim.Width);
+                }
+                Bitmap boyutlandirilmis = new Bitmap(genislik, yukseklik);
+                Graphics grafik = Graphics.FromImage(boyutlandirilmis);
+                grafik.DrawImage(resim, 0, 0, genislik, yukseklik);
+                pictureBox3.Image = boyutlandirilmis;
+            }
+            else pictureBox3.Image = resim;
+            pictureBox3.Enabled = false;
+            Application.DoEvents();
+        }
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            filtercollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            foreach (FilterInfo item in filtercollection)
+            {
+                comboBox1.Items.Add(item.Name);
+                comboBox1.SelectedIndex = 0;
+            }
+        }
+        private void Vcd_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        {
+            pictureBox1.Image = (Bitmap)eventArgs.Frame.Clone();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            vcd = new VideoCaptureDevice(filtercollection[comboBox1.SelectedIndex].MonikerString);
+            vcd.NewFrame += Vcd_NewFrame;  
+            vcd.Start();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            resimYuklePbx(pictureBox1.Image);
+            GaborAndSomeFilter();
         }
     }
 }

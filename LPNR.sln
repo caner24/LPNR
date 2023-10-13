@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPNR", "LPNR\LPNR.csproj", "{C6216BCD-4C56-4AE8-91B2-72C4A9FCDF08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPNR.Entities", "LPNR.Entities\LPNR.Entities.csproj", "{FBC47F63-2E21-492A-BDC5-4A2EA2099D39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C6216BCD-4C56-4AE8-91B2-72C4A9FCDF08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6216BCD-4C56-4AE8-91B2-72C4A9FCDF08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6216BCD-4C56-4AE8-91B2-72C4A9FCDF08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBC47F63-2E21-492A-BDC5-4A2EA2099D39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBC47F63-2E21-492A-BDC5-4A2EA2099D39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBC47F63-2E21-492A-BDC5-4A2EA2099D39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBC47F63-2E21-492A-BDC5-4A2EA2099D39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
