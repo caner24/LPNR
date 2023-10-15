@@ -42,5 +42,10 @@ namespace LPNR.Panels
                 }
             }
         }
+
+        private void btnSavePlate_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

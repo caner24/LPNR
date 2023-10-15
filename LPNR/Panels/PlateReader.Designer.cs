@@ -31,28 +31,28 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pbxPlateDetail = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.pbxLogo = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbxCameraList = new System.Windows.Forms.ComboBox();
             this.button4 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnOpenCamera = new System.Windows.Forms.Button();
             this.btnCapturePhoto = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pbxPlayStop = new System.Windows.Forms.PictureBox();
             this.pbxCamera = new System.Windows.Forms.PictureBox();
             this.pbxPlate = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxPlateDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLogo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxPlayStop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCamera)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPlate)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +61,7 @@
             // 
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.pictureBox2);
+            this.panel1.Controls.Add(this.pbxPlateDetail);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.radioButton2);
@@ -90,13 +90,13 @@
             this.textBox1.Size = new System.Drawing.Size(193, 20);
             this.textBox1.TabIndex = 28;
             // 
-            // pictureBox2
+            // pbxPlateDetail
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(6, 391);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(270, 81);
-            this.pictureBox2.TabIndex = 27;
-            this.pictureBox2.TabStop = false;
+            this.pbxPlateDetail.Location = new System.Drawing.Point(6, 391);
+            this.pbxPlateDetail.Name = "pbxPlateDetail";
+            this.pbxPlateDetail.Size = new System.Drawing.Size(270, 81);
+            this.pbxPlateDetail.TabIndex = 27;
+            this.pbxPlateDetail.TabStop = false;
             // 
             // button2
             // 
@@ -159,13 +159,13 @@
             this.button3.Text = "Dosya Seç";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // cbxCameraList
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(367, 35);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(270, 21);
-            this.comboBox1.TabIndex = 22;
+            this.cbxCameraList.FormattingEnabled = true;
+            this.cbxCameraList.Location = new System.Drawing.Point(367, 35);
+            this.cbxCameraList.Name = "cbxCameraList";
+            this.cbxCameraList.Size = new System.Drawing.Size(270, 21);
+            this.cbxCameraList.TabIndex = 22;
             // 
             // button4
             // 
@@ -204,16 +204,17 @@
             this.btnCapturePhoto.TabIndex = 25;
             this.btnCapturePhoto.Text = "Görüntü Yakala / Okut";
             this.btnCapturePhoto.UseVisualStyleBackColor = true;
+            this.btnCapturePhoto.Click += new System.EventHandler(this.btnCapturePhoto_Click);
             // 
-            // pictureBox1
+            // pbxPlayStop
             // 
-            this.pictureBox1.Image = global::LPNR.Properties.Resources.Turkey_road_sign_TT_2_svg;
-            this.pictureBox1.Location = new System.Drawing.Point(803, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(271, 70);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 26;
-            this.pictureBox1.TabStop = false;
+            this.pbxPlayStop.Image = global::LPNR.Properties.Resources.Turkey_road_sign_TT_2_svg;
+            this.pbxPlayStop.Location = new System.Drawing.Point(803, 3);
+            this.pbxPlayStop.Name = "pbxPlayStop";
+            this.pbxPlayStop.Size = new System.Drawing.Size(271, 70);
+            this.pbxPlayStop.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbxPlayStop.TabIndex = 26;
+            this.pbxPlayStop.TabStop = false;
             // 
             // pbxCamera
             // 
@@ -221,15 +222,18 @@
             this.pbxCamera.Location = new System.Drawing.Point(367, 114);
             this.pbxCamera.Name = "pbxCamera";
             this.pbxCamera.Size = new System.Drawing.Size(270, 236);
+            this.pbxCamera.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbxCamera.TabIndex = 2;
             this.pbxCamera.TabStop = false;
             // 
             // pbxPlate
             // 
             this.pbxPlate.BackColor = System.Drawing.Color.Gray;
+            this.pbxPlate.Image = global::LPNR.Properties.Resources.ozel_plaka;
             this.pbxPlate.Location = new System.Drawing.Point(804, 114);
             this.pbxPlate.Name = "pbxPlate";
             this.pbxPlate.Size = new System.Drawing.Size(270, 236);
+            this.pbxPlate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbxPlate.TabIndex = 1;
             this.pbxPlate.TabStop = false;
             // 
@@ -265,23 +269,23 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pbxPlayStop);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.btnCapturePhoto);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.btnOpenCamera);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pbxCamera);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cbxCameraList);
             this.Controls.Add(this.pbxPlate);
             this.Controls.Add(this.panel1);
             this.Name = "PlateReader";
             this.Size = new System.Drawing.Size(1130, 475);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxPlateDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLogo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxPlayStop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCamera)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPlate)).EndInit();
             this.ResumeLayout(false);
@@ -298,17 +302,17 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.PictureBox pbxLogo;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbxCameraList;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.PictureBox pbxPlate;
         private System.Windows.Forms.PictureBox pbxCamera;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnOpenCamera;
         private System.Windows.Forms.Button btnCapturePhoto;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbxPlayStop;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pbxPlateDetail;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;

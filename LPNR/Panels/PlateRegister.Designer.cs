@@ -170,6 +170,7 @@
             this.btnSavePlate.TabIndex = 6;
             this.btnSavePlate.Text = "Plaka Kaydet";
             this.btnSavePlate.UseVisualStyleBackColor = true;
+            this.btnSavePlate.Click += new System.EventHandler(this.btnSavePlate_Click);
             // 
             // lblPlaka
             // 
