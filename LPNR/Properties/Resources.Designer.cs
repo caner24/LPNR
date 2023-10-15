@@ -63,9 +63,39 @@ namespace LPNR.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap barrier_ani {
+            get {
+                object obj = ResourceManager.GetObject("barrier_ani", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ozel_plaka {
             get {
                 object obj = ResourceManager.GetObject("ozel-plaka", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Turkey_road_sign_TT_2_svg {
+            get {
+                object obj = ResourceManager.GetObject("Turkey_road_sign_TT-2.svg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WiaQjTMthL4145xeWdya {
+            get {
+                object obj = ResourceManager.GetObject("WiaQjTMthL4145xeWdya", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
