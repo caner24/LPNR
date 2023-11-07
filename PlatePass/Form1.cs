@@ -11,7 +11,7 @@ namespace PlatePass
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            PlateRegister register = new PlateRegister();
+            PlateReader register = new PlateReader();
             panel1.Controls.Add(register);
         }
 
@@ -27,6 +27,21 @@ namespace PlatePass
             panel1.Controls.Clear();
             PlateRegister register = new PlateRegister();
             panel1.Controls.Add(register);
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnFullScreen_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnHide_Click(object sender, EventArgs e)
+        {
+            this.WindowState=FormWindowState.Minimized;
         }
     }
 }
