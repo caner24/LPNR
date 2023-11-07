@@ -48,7 +48,6 @@ namespace PlatePass.Panels
                     img = SobelAndGrayFilter.img;
                     pbxPlate.Image = img;
                     FilterPlate2(BitmapToUMat((Bitmap)pbxPlate.Image));
-                    //FilterImg();
                     if (pbxPlate.Image != null)
                     {
                         GetTextFromImg();
@@ -63,35 +62,14 @@ namespace PlatePass.Panels
             }
         }
 
-        //void GetTextFromImg()
-        //{
-        //    var Ocr = new IronTesseract();
-        //    Ocr.Language = OcrLanguage.Turkish;
-        //    using (var Input = new OcrInput())
-        //    {
-        //        using (MemoryStream ms = new MemoryStream())
-        //        {
-        //            //Input.DeNoise();
-        //            //Input.ToGrayScale();
-        //            pbxPlate.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-        //            //var ContentArea = new CropRectangle(x: 38, y: 0, height: 100, width: 330);
-        //            Input.AddImage(ms.ToArray());
-        //            var Result = Ocr.Read(Input);
-        //            tbxPlaka.Text = Result.Text;
-        //        }
-
-        //    }
-
-        //}
-
         void GetTextFromImg()
         {
             using (MemoryStream ms = new MemoryStream())
             {
                 pbxPlate.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                using (var engine = new TesseractEngine(@"C:\Users\cnr24\Downloads\tessdata-main\tessdata-main", "tur", EngineMode.TesseractAndLstm))
+                using (var engine = new TesseractEngine(System.Windows.Forms.Application.StartupPath + @"\tessdata-main", "tur", EngineMode.Default))
                 {
-                    engine.SetVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZ-1234567890");
+                    engine.SetVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
                     using (var img = Pix.LoadFromMemory(ms.ToArray()))
                     {
                         using (var page = engine.Process(img))
@@ -104,8 +82,11 @@ namespace PlatePass.Panels
                             }
                         }
                     }
+
                 }
+
             }
+          
 
         }
 
@@ -134,35 +115,11 @@ namespace PlatePass.Panels
             {
                 throw new NotSupportedException("Unsupported pixel format.");
             }
-
-            // Create a UMat with the same size and number of channels as the Bitmap
             UMat umat = new UMat(bitmap.Size, DepthType.Cv8U, channels);
 
-            // Copy the pixel data from the Bitmap to the UMat
-            CvInvoke.CvtColor(bitmap.ToImage<Bgr, byte>(), umat, ColorConversion.Bgr2Gray); // Adjust the color conversion if needed
+            CvInvoke.CvtColor(bitmap.ToImage<Bgr, byte>(), umat, ColorConversion.Bgr2Gray);
 
             return umat;
-        }
-
-        void FilterImg()
-        {
-            var filter = new PointedColorFloodFill();
-            filter.FillColor = System.Drawing.Color.White;
-            filter.Tolerance = System.Drawing.Color.FromArgb(60, 60, 60);
-
-            filter.StartingPoint = new IntPoint(0, 0);
-            filter.ApplyInPlace(img);
-            filter.StartingPoint = new IntPoint(img.Size.Width - 1, 0);
-            filter.ApplyInPlace(img);
-            filter.StartingPoint = new IntPoint(img.Size.Width - 1, img.Size.Height - 1);
-            filter.ApplyInPlace(img);
-            filter.StartingPoint = new IntPoint(0, img.Size.Height - 1);
-            filter.ApplyInPlace(img);
-
-            var bradleyfilter = new BradleyLocalThresholding();
-            bradleyfilter.ApplyInPlace(img);
-            filter.Tolerance = System.Drawing.Color.FromArgb(10, 10, 10);
-            pbxPlate.Image = img;
         }
 
         public void FilterPlate2(UMat plate)
