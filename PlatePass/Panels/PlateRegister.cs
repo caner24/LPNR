@@ -20,15 +20,20 @@ using AForge.Imaging;
 using IronOcr;
 using IronSoftware.Drawing;
 using BitMiracle.LibTiff.Classic;
+using PlatePass.Business.Abstract;
+using PlatePass.Business.DI;
 
 namespace PlatePass.Panels
 {
     public partial class PlateRegister : UserControl
     {
+       
         static Bitmap img;
+        private readonly IPlateService _plateService;
         public PlateRegister()
         {
             InitializeComponent();
+            _plateService = InstanceFactory.GetInstance<IPlateService>();
         }
 
 
@@ -69,7 +74,7 @@ namespace PlatePass.Panels
                 pbxPlate.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                 using (var engine = new TesseractEngine(System.Windows.Forms.Application.StartupPath + @"\tessdata-main", "tur", EngineMode.Default))
                 {
-                    engine.SetVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+                    engine.SetVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZ-1234567890");
                     using (var img = Pix.LoadFromMemory(ms.ToArray()))
                     {
                         using (var page = engine.Process(img))
@@ -82,11 +87,8 @@ namespace PlatePass.Panels
                             }
                         }
                     }
-
                 }
-
             }
-          
 
         }
 
@@ -165,5 +167,9 @@ namespace PlatePass.Panels
             pbxPlate.Image = thresh.ToBitmap();
         }
 
+        private void btnSavePlate_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

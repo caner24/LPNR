@@ -42,7 +42,7 @@ namespace PlatePass.Panels
             lblPlaka = new Label();
             mtbTel = new MaskedTextBox();
             btnOpenFile = new Button();
-            button1 = new Button();
+            btnSavePlate = new Button();
             button2 = new Button();
             button3 = new Button();
             pbxCar = new PictureBox();
@@ -54,9 +54,11 @@ namespace PlatePass.Panels
             // 
             // pbxLogo
             // 
+            pbxLogo.Image = Properties.Resources.Kouyenilogo;
             pbxLogo.Location = new System.Drawing.Point(3, 3);
             pbxLogo.Name = "pbxLogo";
             pbxLogo.Size = new System.Drawing.Size(270, 117);
+            pbxLogo.SizeMode = PictureBoxSizeMode.Zoom;
             pbxLogo.TabIndex = 0;
             pbxLogo.TabStop = false;
             // 
@@ -158,14 +160,15 @@ namespace PlatePass.Panels
             btnOpenFile.UseVisualStyleBackColor = true;
             btnOpenFile.Click += btnOpenFile_Click;
             // 
-            // button1
+            // btnSavePlate
             // 
-            button1.Location = new System.Drawing.Point(140, 337);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(129, 64);
-            button1.TabIndex = 14;
-            button1.Text = "Plaka Kaydet";
-            button1.UseVisualStyleBackColor = true;
+            btnSavePlate.Location = new System.Drawing.Point(140, 337);
+            btnSavePlate.Name = "btnSavePlate";
+            btnSavePlate.Size = new System.Drawing.Size(129, 64);
+            btnSavePlate.TabIndex = 14;
+            btnSavePlate.Text = "Plaka Kaydet";
+            btnSavePlate.UseVisualStyleBackColor = true;
+            btnSavePlate.Click += btnSavePlate_Click;
             // 
             // button2
             // 
@@ -210,7 +213,7 @@ namespace PlatePass.Panels
             Controls.Add(pbxCar);
             Controls.Add(button2);
             Controls.Add(button3);
-            Controls.Add(button1);
+            Controls.Add(btnSavePlate);
             Controls.Add(btnOpenFile);
             Controls.Add(mtbTel);
             Controls.Add(lblPlaka);
@@ -248,7 +251,7 @@ namespace PlatePass.Panels
         private Label lblPlaka;
         private MaskedTextBox mtbTel;
         private Button btnOpenFile;
-        private Button button1;
+        private Button btnSavePlate;
         private Button button2;
         private Button button3;
         private PictureBox pbxCar;

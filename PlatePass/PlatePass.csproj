@@ -23,6 +23,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PlatePass.DataAcess\PlatePass.DataAcess.csproj" />
+    <ProjectReference Include="..\PlatePass.Entities\PlatePass.Entities.csproj" />
+    <ProjectReference Include="..\PlatePass.Services\PlatePass.Business.csproj" />
   </ItemGroup>
 
   <ItemGroup>

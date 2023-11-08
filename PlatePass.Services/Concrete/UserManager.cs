@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace PlatePass.Business.Concrete
 {
-    public class UserService : IUserService
+    public class UserManager : IUserService
     {
         private readonly IUserDal _userDal;
 
-        public UserService(IUserDal userDal)
+        public UserManager(IUserDal userDal)
         {
             _userDal = userDal;
         }
