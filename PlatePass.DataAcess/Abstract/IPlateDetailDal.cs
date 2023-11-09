@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PlatePass.DataAcess.Abstract
 {
-    public interface IPlateUserDetailDal : IEntityRepositoryBase<PlateUserDetail>
+    public interface IPlateDetailDal : IEntityRepositoryBase<PlateDetails>
     {
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using PlatePass.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace PlatePass.DataAcess
     public class PlatePassContext : DbContext
     {
         public DbSet<Plate> Plate { get; set; }
-        public DbSet<PlateUserDetail> PlateUserDetail { get; set; }
+        public DbSet<PlateDetails> PlateUserDetail { get; set; }
         public DbSet<User> User { get; set; }
 
 
@@ -19,13 +20,9 @@ namespace PlatePass.DataAcess
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"");
+                optionsBuilder.UseSqlServer(@"Server=CANER;Database=PlatePassDb;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True");
             }
             base.OnConfiguring(optionsBuilder);
-        }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<PlateUserDetail>().HasKey(x => new { x.UserId, x.PlateId });
         }
     }
 }

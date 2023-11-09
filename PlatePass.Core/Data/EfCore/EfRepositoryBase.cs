@@ -13,25 +13,32 @@ namespace PlatePass.Core.Data.EfCore
         where TContext : DbContext, new()
     {
         private readonly TContext _dbContext;
+        public EfRepositoryBase()
+        {
+            _dbContext = new TContext();
+        }
         public async Task<TEntity> AddEntityAsync(TEntity entity)
         {
+
             _dbContext.Set<TEntity>().Add(entity);
             await _dbContext.SaveChangesAsync();
             return entity;
+
         }
         public async Task<int> DeleteEntityByIdentityAsync(TEntity entity)
         {
             _dbContext.Set<TEntity>().Remove(entity);
             return await _dbContext.SaveChangesAsync();
         }
-        public async Task<List<TEntity>> GetAllEntityAsync(Expression<Func<TEntity, bool>> filter = null)
+        public IQueryable<TEntity> GetAllEntityAsync(Expression<Func<TEntity, bool>> filter = null)
         {
-            return filter == null ? await _dbContext.Set<TEntity>().ToListAsync() : await _dbContext.Set<TEntity>().Where(filter).ToListAsync();
+
+            return filter == null ? _dbContext.Set<TEntity>().AsNoTracking() : _dbContext.Set<TEntity>().Where(filter).AsNoTracking();
         }
 
-        public async Task<TEntity> GetEntityByIdentityAsync(Expression<Func<TEntity, bool>> filter)
+        public IQueryable<TEntity> GetEntityByIdentityAsync(Expression<Func<TEntity, bool>> filter)
         {
-            return await _dbContext.Set<TEntity>().FirstOrDefaultAsync(filter);
+            return _dbContext.Set<TEntity>().Where(filter).AsNoTracking();
         }
 
         public async Task<TEntity> UpdateEntityAsync(TEntity entity)

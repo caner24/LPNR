@@ -22,18 +22,23 @@ using IronSoftware.Drawing;
 using BitMiracle.LibTiff.Classic;
 using PlatePass.Business.Abstract;
 using PlatePass.Business.DI;
+using PlatePass.Entities;
+using Microsoft.EntityFrameworkCore;
+using PlatePass.Business.Validation;
 
 namespace PlatePass.Panels
 {
     public partial class PlateRegister : UserControl
     {
-       
+
         static Bitmap img;
         private readonly IPlateService _plateService;
+        private readonly IUserService _userService;
         public PlateRegister()
         {
             InitializeComponent();
             _plateService = InstanceFactory.GetInstance<IPlateService>();
+            _userService = InstanceFactory.GetInstance<IUserService>();
         }
 
 
@@ -167,7 +172,31 @@ namespace PlatePass.Panels
             pbxPlate.Image = thresh.ToBitmap();
         }
 
-        private void btnSavePlate_Click(object sender, EventArgs e)
+        private async void btnSavePlate_Click(object sender, EventArgs e)
+        {
+            User user = new User
+            {
+                EmailAdres = tbxEmail.Text,
+                UserName = tbxName.Text,
+                UserSurname = tbxSurname.Text
+            };
+            foreach (var item in tbxPlaka.Text.ToString().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                user.Plates.Add(new Plate { PlateText = item });
+            }
+            var validator = new UserValidator();
+            var validationResult = validator.Validate(user);
+
+            if (validationResult.IsValid)
+                await _userService.AddEntityAsync(user);
+            else
+            {
+                string errorMessage = string.Join("\n", validationResult.Errors.Select(error => error.ErrorMessage));
+                MessageBox.Show(errorMessage);
+            }
+        }
+
+        private async void PlateRegister_Load(object sender, EventArgs e)
         {
 
         }

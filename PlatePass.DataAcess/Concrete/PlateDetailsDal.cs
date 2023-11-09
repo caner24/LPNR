@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PlatePass.DataAcess.Concrete
 {
-    public class PlateUserDetailDal : EfRepositoryBase<PlatePassContext, PlateUserDetail>, IPlateUserDetailDal
+    public class PlateDetailsDal : EfRepositoryBase<PlatePassContext, PlateDetails>, IPlateDetailDal
     {
     }
 }

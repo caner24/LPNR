@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace PlatePass.Entities
 {
-    public class PlateUserDetail : IEntity
+    public class PlateDetails : IEntity
     {
-        public int UserId { get; set; }
-
+        public int Id { get; set; }
         public int PlateId { get; set; }
-
+        public Plate Plate { get; set; }
         public DateTime PassDate { get; set; }
-
         public bool IsSafePlate { get; set; }
     }
 }

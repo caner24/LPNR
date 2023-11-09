@@ -1,4 +1,5 @@
-﻿using PlatePass.Business.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using PlatePass.Business.Abstract;
 using PlatePass.DataAcess.Abstract;
 using PlatePass.Entities;
 using System;
@@ -35,12 +36,12 @@ namespace PlatePass.Business.Concrete
 
         public async Task<List<Plate>> GetAllEntityAsync(Expression<Func<Plate, bool>> filter = null)
         {
-            return filter == null ? await _plateDal.GetAllEntityAsync() : await _plateDal.GetAllEntityAsync(filter);
+            return filter == null ? await _plateDal.GetAllEntityAsync().Include(x => x.User).ToListAsync() : await _plateDal.GetAllEntityAsync(filter).Include(x => x.User).ToListAsync();
         }
 
         public async Task<Plate> GetEntityByIdentityAsync(Expression<Func<Plate, bool>> filter)
         {
-            return await _plateDal.GetEntityByIdentityAsync(filter);
+            return await _plateDal.GetEntityByIdentityAsync(filter).FirstOrDefaultAsync();
 
         }
 

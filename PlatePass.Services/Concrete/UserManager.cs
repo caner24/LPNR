@@ -1,4 +1,5 @@
-﻿using PlatePass.Business.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using PlatePass.Business.Abstract;
 using PlatePass.DataAcess.Abstract;
 using PlatePass.Entities;
 using System;
@@ -35,9 +36,9 @@ namespace PlatePass.Business.Concrete
             return await _userDal.DeleteEntityByIdentityAsync(searchedUser);
         }
 
-        public Task<List<User>> GetAllEntityAsync(Expression<Func<User, bool>> filter = null)
+        public async Task<List<User>> GetAllEntityAsync(Expression<Func<User, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            return filter == null ? await _userDal.GetAllEntityAsync().Include(x => x.Plates).ToListAsync() : await _userDal.GetAllEntityAsync(filter).Include(x => x.Plates).ToListAsync();
         }
 
         public Task<User> GetEntityByIdentityAsync(Expression<Func<User, bool>> filter)

@@ -36,17 +36,13 @@ namespace PlatePass.Panels
             tbxName = new TextBox();
             tbxSurname = new TextBox();
             lblSurname = new Label();
-            tbxEmail = new TextBox();
-            lblEmail = new Label();
-            lblTel = new Label();
             lblPlaka = new Label();
-            mtbTel = new MaskedTextBox();
             btnOpenFile = new Button();
             btnSavePlate = new Button();
-            button2 = new Button();
-            button3 = new Button();
             pbxCar = new PictureBox();
             tbxPlaka = new TextBox();
+            lblEmail = new Label();
+            tbxEmail = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pbxLogo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbxPlate).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbxCar).BeginInit();
@@ -75,7 +71,7 @@ namespace PlatePass.Panels
             // 
             lblName.AutoSize = true;
             lblName.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblName.Location = new System.Drawing.Point(5, 127);
+            lblName.Location = new System.Drawing.Point(1, 139);
             lblName.Name = "lblName";
             lblName.Size = new System.Drawing.Size(39, 18);
             lblName.TabIndex = 2;
@@ -83,14 +79,14 @@ namespace PlatePass.Panels
             // 
             // tbxName
             // 
-            tbxName.Location = new System.Drawing.Point(73, 122);
+            tbxName.Location = new System.Drawing.Point(69, 134);
             tbxName.Name = "tbxName";
             tbxName.Size = new System.Drawing.Size(200, 23);
             tbxName.TabIndex = 3;
             // 
             // tbxSurname
             // 
-            tbxSurname.Location = new System.Drawing.Point(73, 149);
+            tbxSurname.Location = new System.Drawing.Point(69, 163);
             tbxSurname.Name = "tbxSurname";
             tbxSurname.Size = new System.Drawing.Size(200, 23);
             tbxSurname.TabIndex = 5;
@@ -99,62 +95,27 @@ namespace PlatePass.Panels
             // 
             lblSurname.AutoSize = true;
             lblSurname.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblSurname.Location = new System.Drawing.Point(3, 153);
+            lblSurname.Location = new System.Drawing.Point(-1, 167);
             lblSurname.Name = "lblSurname";
             lblSurname.Size = new System.Drawing.Size(64, 18);
             lblSurname.TabIndex = 4;
             lblSurname.Text = "Soyad : ";
             // 
-            // tbxEmail
-            // 
-            tbxEmail.Location = new System.Drawing.Point(73, 178);
-            tbxEmail.Name = "tbxEmail";
-            tbxEmail.Size = new System.Drawing.Size(200, 23);
-            tbxEmail.TabIndex = 7;
-            // 
-            // lblEmail
-            // 
-            lblEmail.AutoSize = true;
-            lblEmail.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblEmail.Location = new System.Drawing.Point(5, 182);
-            lblEmail.Name = "lblEmail";
-            lblEmail.Size = new System.Drawing.Size(47, 18);
-            lblEmail.TabIndex = 6;
-            lblEmail.Text = "Email";
-            // 
-            // lblTel
-            // 
-            lblTel.AutoSize = true;
-            lblTel.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTel.Location = new System.Drawing.Point(5, 211);
-            lblTel.Name = "lblTel";
-            lblTel.Size = new System.Drawing.Size(41, 18);
-            lblTel.TabIndex = 8;
-            lblTel.Text = "Tel : ";
-            // 
             // lblPlaka
             // 
             lblPlaka.AutoSize = true;
             lblPlaka.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblPlaka.Location = new System.Drawing.Point(5, 240);
+            lblPlaka.Location = new System.Drawing.Point(1, 236);
             lblPlaka.Name = "lblPlaka";
             lblPlaka.Size = new System.Drawing.Size(56, 18);
             lblPlaka.TabIndex = 10;
             lblPlaka.Text = "Plaka :";
             // 
-            // mtbTel
-            // 
-            mtbTel.Location = new System.Drawing.Point(73, 207);
-            mtbTel.Mask = "(+90) 000-0000";
-            mtbTel.Name = "mtbTel";
-            mtbTel.Size = new System.Drawing.Size(200, 23);
-            mtbTel.TabIndex = 12;
-            // 
             // btnOpenFile
             // 
-            btnOpenFile.Location = new System.Drawing.Point(5, 337);
+            btnOpenFile.Location = new System.Drawing.Point(3, 337);
             btnOpenFile.Name = "btnOpenFile";
-            btnOpenFile.Size = new System.Drawing.Size(129, 64);
+            btnOpenFile.Size = new System.Drawing.Size(270, 64);
             btnOpenFile.TabIndex = 13;
             btnOpenFile.Text = "Dosya Seç";
             btnOpenFile.UseVisualStyleBackColor = true;
@@ -162,47 +123,46 @@ namespace PlatePass.Panels
             // 
             // btnSavePlate
             // 
-            btnSavePlate.Location = new System.Drawing.Point(140, 337);
+            btnSavePlate.Location = new System.Drawing.Point(3, 403);
             btnSavePlate.Name = "btnSavePlate";
-            btnSavePlate.Size = new System.Drawing.Size(129, 64);
+            btnSavePlate.Size = new System.Drawing.Size(270, 64);
             btnSavePlate.TabIndex = 14;
             btnSavePlate.Text = "Plaka Kaydet";
             btnSavePlate.UseVisualStyleBackColor = true;
             btnSavePlate.Click += btnSavePlate_Click;
             // 
-            // button2
-            // 
-            button2.Location = new System.Drawing.Point(140, 403);
-            button2.Name = "button2";
-            button2.Size = new System.Drawing.Size(129, 64);
-            button2.TabIndex = 16;
-            button2.Text = "Plaka Sil";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            button3.Location = new System.Drawing.Point(5, 403);
-            button3.Name = "button3";
-            button3.Size = new System.Drawing.Size(129, 64);
-            button3.TabIndex = 15;
-            button3.Text = "Plaka Güncelle";
-            button3.UseVisualStyleBackColor = true;
-            // 
             // pbxCar
             // 
             pbxCar.Location = new System.Drawing.Point(279, 3);
             pbxCar.Name = "pbxCar";
-            pbxCar.Size = new System.Drawing.Size(848, 328);
+            pbxCar.Size = new System.Drawing.Size(848, 464);
             pbxCar.SizeMode = PictureBoxSizeMode.Zoom;
             pbxCar.TabIndex = 17;
             pbxCar.TabStop = false;
             // 
             // tbxPlaka
             // 
-            tbxPlaka.Location = new System.Drawing.Point(73, 236);
+            tbxPlaka.Location = new System.Drawing.Point(69, 232);
             tbxPlaka.Name = "tbxPlaka";
             tbxPlaka.Size = new System.Drawing.Size(200, 23);
             tbxPlaka.TabIndex = 18;
+            // 
+            // lblEmail
+            // 
+            lblEmail.AutoSize = true;
+            lblEmail.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblEmail.Location = new System.Drawing.Point(1, 203);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new System.Drawing.Size(47, 18);
+            lblEmail.TabIndex = 6;
+            lblEmail.Text = "Email";
+            // 
+            // tbxEmail
+            // 
+            tbxEmail.Location = new System.Drawing.Point(69, 199);
+            tbxEmail.Name = "tbxEmail";
+            tbxEmail.Size = new System.Drawing.Size(200, 23);
+            tbxEmail.TabIndex = 7;
             // 
             // PlateRegister
             // 
@@ -211,13 +171,9 @@ namespace PlatePass.Panels
             BackColor = System.Drawing.Color.Coral;
             Controls.Add(tbxPlaka);
             Controls.Add(pbxCar);
-            Controls.Add(button2);
-            Controls.Add(button3);
             Controls.Add(btnSavePlate);
             Controls.Add(btnOpenFile);
-            Controls.Add(mtbTel);
             Controls.Add(lblPlaka);
-            Controls.Add(lblTel);
             Controls.Add(tbxEmail);
             Controls.Add(lblEmail);
             Controls.Add(tbxSurname);
@@ -228,6 +184,7 @@ namespace PlatePass.Panels
             Controls.Add(pbxLogo);
             Name = "PlateRegister";
             Size = new System.Drawing.Size(1130, 475);
+            Load += PlateRegister_Load;
             ((System.ComponentModel.ISupportInitialize)pbxLogo).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbxPlate).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbxCar).EndInit();
@@ -243,18 +200,14 @@ namespace PlatePass.Panels
         private TextBox tbxName;
         private TextBox tbxSurname;
         private Label lblSurname;
-        private TextBox tbxEmail;
-        private Label lblEmail;
         private TextBox textBox3;
-        private Label lblTel;
         private TextBox textBox4;
         private Label lblPlaka;
-        private MaskedTextBox mtbTel;
         private Button btnOpenFile;
         private Button btnSavePlate;
-        private Button button2;
-        private Button button3;
         private PictureBox pbxCar;
         private TextBox tbxPlaka;
+        private Label lblEmail;
+        private TextBox tbxEmail;
     }
 }

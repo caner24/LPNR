@@ -10,21 +10,14 @@ namespace PlatePass.Entities
 {
     public class User : IEntity
     {
+        public User()
+        {
+            Plates = new List<Plate>();
+        }
         public int Id { get; set; }
-        [Required(ErrorMessage = "İsmi bos birakmayin")]
-        public int UserName { get; set; }
-        [Required(ErrorMessage = "Soyismi bos birakmayin")]
-        public int UserSurname { get; set; }
-
-        [Required(ErrorMessage = "Email alanini boş birakmayin")]
-        [EmailAddress(ErrorMessage = "Email adresi şeklinde girilmelidir")]
+        public string UserName { get; set; }
+        public string UserSurname { get; set; }
         public string EmailAdres { get; set; }
-
-        [Required(ErrorMessage = "Email alanini boş birakmayin")]
-        public string Number { get; set; }
-
         public List<Plate> Plates { get; set; }
-
-        public List<PlateUserDetail> PlateUserDetails { get; set; }
     }
 }

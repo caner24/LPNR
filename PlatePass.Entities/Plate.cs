@@ -13,6 +13,6 @@ namespace PlatePass.Entities
         public string PlateText { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
-        public List<PlateUserDetail> PlateUserDetails { get; set; }
+        public List<PlateDetails> PlateDetails { get; set; }
     }
 }
