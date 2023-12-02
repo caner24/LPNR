@@ -1,5 +1,7 @@
-﻿using PlatePass.Business.Abstract;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using PlatePass.Business.Abstract;
 using PlatePass.Business.DI;
+using PlatePass.Business.Validation;
 using PlatePass.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using User = PlatePass.Entities.User;
 
 namespace PlatePass.Panels
 {
@@ -88,7 +91,21 @@ namespace PlatePass.Panels
             plate.User.UserName = tbxName.Text.ToString();
             plate.User.UserSurname = tbxSurname.Text.ToString();
             plate.User.EmailAdres = tbxEmail.Text.ToString();
-            await _plateService.UpdateEntityAsync(plate);
+            var validator = new UserValidator();
+            var validationResult = validator.Validate(plate.User);
+
+            if (validationResult.IsValid)
+            {
+                await _plateService.UpdateEntityAsync(plate);
+                MessageBox.Show("Güncelleme işlemi başarılı bir şekilde gerçekleştirildi");
+                this.Refresh();
+            }
+            else
+            {
+                string errorMessage = string.Join("\n", validationResult.Errors.Select(error => error.ErrorMessage));
+                MessageBox.Show(errorMessage);
+            }
+            
         }
     }
 }
