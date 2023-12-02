@@ -12,7 +12,7 @@ namespace PlatePass
 {
     public class SobelAndGrayFilter
     {
-       public static Bitmap img;
+        public static Bitmap img;
 
         public static void ProcessFrame(Mat frame)
         {

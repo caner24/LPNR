@@ -32,12 +32,12 @@ namespace PlatePass.Business.Concrete
 
         public async Task<List<PlateDetails>> GetAllEntityAsync(Expression<Func<PlateDetails, bool>> filter = null)
         {
-            return filter == null ? await _plateDetailDal.GetAllEntityAsync().Take(10).Include(x=>x.Plate) .ToListAsync() : await _plateDetailDal.GetAllEntityAsync(filter).Take(10).Include(x => x.Plate).ToListAsync();
+            return filter == null ? await _plateDetailDal.GetAllEntityAsync().Take(10).Include(x => x.Plate).ToListAsync() : await _plateDetailDal.GetAllEntityAsync(filter).Take(10).Include(x => x.Plate).ToListAsync();
         }
 
-        public Task<PlateDetails> GetEntityByIdentityAsync(Expression<Func<PlateDetails, bool>> filter)
+        public async Task<PlateDetails> GetEntityByIdentityAsync(Expression<Func<PlateDetails, bool>> filter)
         {
-            throw new NotImplementedException();
+            return await _plateDetailDal.GetEntityByIdentityAsync(filter).FirstOrDefaultAsync();
         }
 
         public Task<PlateDetails> UpdateEntityAsync(PlateDetails entity)

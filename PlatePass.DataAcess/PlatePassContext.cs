@@ -20,7 +20,7 @@ namespace PlatePass.DataAcess
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=CANER;Database=PlatePassDb;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True");
+                optionsBuilder.UseSqlServer(@"Server=CANER24;Database=PlatePassDb;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True");
             }
             base.OnConfiguring(optionsBuilder);
         }

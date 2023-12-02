@@ -45,6 +45,9 @@ namespace PlatePass.Panels
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
 
+
+
+
             tbxPlaka.Clear();
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
@@ -57,19 +60,27 @@ namespace PlatePass.Panels
                     SobelAndGrayFilter.ProcessFrame(frame);
                     img = SobelAndGrayFilter.img;
                     pbxPlate.Image = img;
-                    FilterPlate2(BitmapToUMat((Bitmap)pbxPlate.Image));
-                    if (pbxPlate.Image != null)
+                    var filteredImg = BitmapToUMat((Bitmap)pbxPlate.Image);
+                    if (filteredImg != null)
                     {
-                        GetTextFromImg();
-                        if (tbxPlaka.Text == "")
+                        FilterPlate2(filteredImg);
+                        if (pbxPlate.Image != null)
+                        {
+                            GetTextFromImg();
+                            if (tbxPlaka.Text == "")
+                                MessageBox.Show("Resim çok bulanik okunamiyor !.");
+                        }
+                        else
+                        {
                             MessageBox.Show("Resim çok bulanik okunamiyor !.");
+                        }
+
                     }
-                    else
-                    {
-                        MessageBox.Show("Resim çok bulanik okunamiyor !.");
-                    }
+
+
                 }
             }
+
         }
 
         void GetTextFromImg()
@@ -77,6 +88,7 @@ namespace PlatePass.Panels
             using (MemoryStream ms = new MemoryStream())
             {
                 pbxPlate.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+
                 using (var engine = new TesseractEngine(System.Windows.Forms.Application.StartupPath + @"\tessdata-main", "tur", EngineMode.Default))
                 {
                     engine.SetVariable("tessedit_char_whitelist", "ABCDEFGHIJKLMNOPQRSTUVWXYZ-1234567890");
@@ -99,34 +111,39 @@ namespace PlatePass.Panels
 
         private UMat BitmapToUMat(Bitmap bitmap)
         {
-            if (bitmap == null)
-            {
-                throw new ArgumentNullException("Input bitmap is null.");
-            }
 
-            int channels;
+            if (bitmap != null)
+            {
+                int channels;
 
-            if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format8bppIndexed)
-            {
-                channels = 1; // Grayscale
-            }
-            else if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format24bppRgb)
-            {
-                channels = 3; // RGB
-            }
-            else if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format32bppArgb)
-            {
-                channels = 4; // ARGB
+                if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format8bppIndexed)
+                {
+                    channels = 1; // Grayscale
+                }
+                else if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format24bppRgb)
+                {
+                    channels = 3; // RGB
+                }
+                else if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format32bppArgb)
+                {
+                    channels = 4; // ARGB
+                }
+                else
+                {
+                    throw new NotSupportedException("Unsupported pixel format.");
+                }
+                UMat umat = new UMat(bitmap.Size, DepthType.Cv8U, channels);
+
+                CvInvoke.CvtColor(bitmap.ToImage<Bgr, byte>(), umat, ColorConversion.Bgr2Gray);
+
+                return umat;
             }
             else
             {
-                throw new NotSupportedException("Unsupported pixel format.");
+                MessageBox.Show("Resim çok bulanik plaka tanimlanamadi.");
+                return null;
             }
-            UMat umat = new UMat(bitmap.Size, DepthType.Cv8U, channels);
 
-            CvInvoke.CvtColor(bitmap.ToImage<Bgr, byte>(), umat, ColorConversion.Bgr2Gray);
-
-            return umat;
         }
 
         public void FilterPlate2(UMat plate)
@@ -188,7 +205,11 @@ namespace PlatePass.Panels
             var validationResult = validator.Validate(user);
 
             if (validationResult.IsValid)
+            {
                 await _userService.AddEntityAsync(user);
+                MessageBox.Show("Plaka başarılı bir şekilde kaydedildi");
+                this.Refresh();
+            }
             else
             {
                 string errorMessage = string.Join("\n", validationResult.Errors.Select(error => error.ErrorMessage));

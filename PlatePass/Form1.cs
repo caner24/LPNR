@@ -41,7 +41,14 @@ namespace PlatePass
 
         private void btnHide_Click(object sender, EventArgs e)
         {
-            this.WindowState=FormWindowState.Minimized;
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void plateDetailToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            PlateDetail plateDetail = new PlateDetail();
+            panel1.Controls.Add(plateDetail);
         }
     }
 }

@@ -24,9 +24,9 @@ namespace PlatePass.Business.Concrete
             return entity;
         }
 
-        public async Task<int> DeleteEntityByIdentityAsync(int id)
+        public async Task<int> DeleteEntityByIdentityAsync(string plateText)
         {
-            var user = await GetEntityByIdentityAsync(x => x.Id == id);
+            var user = await GetEntityByIdentityAsync(x => x.PlateText == plateText);
             if (user == null)
                 throw new Exception("Aradığınız kullanici bulunamadi");
 
@@ -41,7 +41,7 @@ namespace PlatePass.Business.Concrete
 
         public async Task<Plate> GetEntityByIdentityAsync(Expression<Func<Plate, bool>> filter)
         {
-            return await _plateDal.GetEntityByIdentityAsync(filter).FirstOrDefaultAsync();
+            return await _plateDal.GetEntityByIdentityAsync(filter).Include(x => x.User).AsNoTracking().FirstOrDefaultAsync();
 
         }
 

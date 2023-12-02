@@ -31,6 +31,7 @@
             menuStrip1 = new MenuStrip();
             plateReaderToolStripMenuItem = new ToolStripMenuItem();
             plateRegisterToolStripMenuItem = new ToolStripMenuItem();
+            plateDetailToolStripMenuItem = new ToolStripMenuItem();
             panel1 = new Panel();
             btnClose = new Button();
             btnFullScreen = new Button();
@@ -40,7 +41,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { plateReaderToolStripMenuItem, plateRegisterToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { plateReaderToolStripMenuItem, plateRegisterToolStripMenuItem, plateDetailToolStripMenuItem });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new System.Drawing.Size(1130, 24);
@@ -60,6 +61,13 @@
             plateRegisterToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
             plateRegisterToolStripMenuItem.Text = "Plate Register";
             plateRegisterToolStripMenuItem.Click += plateRegisterToolStripMenuItem_Click;
+            // 
+            // plateDetailToolStripMenuItem
+            // 
+            plateDetailToolStripMenuItem.Name = "plateDetailToolStripMenuItem";
+            plateDetailToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            plateDetailToolStripMenuItem.Text = "Plate Detail";
+            plateDetailToolStripMenuItem.Click += plateDetailToolStripMenuItem_Click;
             // 
             // panel1
             // 
@@ -134,5 +142,6 @@
         private Button btnFullScreen;
         private Button btnClose;
         private Button btnHide;
+        private ToolStripMenuItem plateDetailToolStripMenuItem;
     }
 }

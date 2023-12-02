@@ -14,7 +14,7 @@ namespace PlatePass.Business.Abstract
 
         Task<Plate> GetEntityByIdentityAsync(Expression<Func<Plate, bool>> filter);
 
-        Task<int> DeleteEntityByIdentityAsync(int id);
+        Task<int> DeleteEntityByIdentityAsync(string id);
 
         Task<Plate> UpdateEntityAsync(Plate entity);
 
