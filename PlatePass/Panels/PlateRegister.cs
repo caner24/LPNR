@@ -45,9 +45,6 @@ namespace PlatePass.Panels
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
 
-
-
-
             tbxPlaka.Clear();
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
@@ -106,7 +103,6 @@ namespace PlatePass.Panels
                     }
                 }
             }
-
         }
 
         private UMat BitmapToUMat(Bitmap bitmap)
